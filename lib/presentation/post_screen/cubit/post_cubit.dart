@@ -17,7 +17,7 @@ class PostCubit extends Cubit<PostState> {
       emit(state.copyWith(loading: true));
       final posts = await getPostsUseCase.execute();
 
-      // Future.delayed(const Duration(seconds: 3));
+       Future.delayed(const Duration(seconds: 3));
       emit(state.copyWith(data: posts, loading: false));
     } catch (e) {
       emit(state.copyWith(error: true,loading: false));

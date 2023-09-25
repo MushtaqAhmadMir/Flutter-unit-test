@@ -29,6 +29,7 @@ void main() {
         when(() => mockPostUsecase.execute()).thenAnswer((_) async => posts);
         return PostCubit(getPostsUseCase: mockPostUsecase);
       },
+      wait: const Duration(seconds: 3),
       act: (cubit) async => cubit.fetchPosts(),
       expect: () => [
         // The first emitted state should have loading set to true
@@ -45,7 +46,8 @@ void main() {
     blocTest<PostCubit, PostState>(
       'Throw Error if some went wrong',
       build: () {
-        when(() => mockPostUsecase.execute()).thenThrow((_) async => Exception('error'));
+        when(() => mockPostUsecase.execute())
+            .thenThrow((_) async => Exception('error'));
         return PostCubit(getPostsUseCase: mockPostUsecase);
       },
       act: (cubit) async => cubit.fetchPosts(),
